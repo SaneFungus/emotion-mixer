@@ -365,6 +365,8 @@ const EmotionMixer = () => {
           <RetroControlPanel>
             {selectedEmotions.map(emotionName => {
               const emotion = emotions.find(e => e.name === emotionName);
+              if (!emotion) return null; // Safety check
+
               return (
                 <RetroKnob
                   key={emotion.name}
