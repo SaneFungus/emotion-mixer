@@ -11,8 +11,26 @@ type Emotion = {
   color: string;
 };
 
+// Typy dla komponentów
+type RetroPanelProps = {
+  children: React.ReactNode;
+  variant?: 'default' | 'darker' | 'lighter';
+};
+
+type RetroLayoutProps = {
+  children: React.ReactNode;
+};
+
+type RetroDisplayPanelProps = {
+  children: React.ReactNode;
+};
+
+type RetroControlPanelProps = {
+  children: React.ReactNode;
+};
+
 // Komponent RetroPanel
-const RetroPanel = ({ children, variant = 'default' }) => {
+const RetroPanel = ({ children, variant = 'default' }: RetroPanelProps) => {
   const variants = {
     default: 'from-gray-800 to-gray-900',
     darker: 'from-gray-900 to-gray-950',
@@ -32,7 +50,7 @@ const RetroPanel = ({ children, variant = 'default' }) => {
 };
 
 // Komponenty layoutu
-const RetroLayout = ({ children }) => (
+const RetroLayout = ({ children }: RetroLayoutProps) => (
   <div className="p-6 bg-gradient-to-b from-gray-900 to-gray-950 rounded-xl shadow-2xl border border-gray-700">
     <div className="flex flex-col gap-4">
       {children}
@@ -40,7 +58,7 @@ const RetroLayout = ({ children }) => (
   </div>
 );
 
-const RetroDisplayPanel = ({ children }) => (
+const RetroDisplayPanel = ({ children }: RetroDisplayPanelProps) => (
   <RetroPanel variant="darker">
     <div className="flex items-center gap-4">
       {children}
@@ -48,7 +66,7 @@ const RetroDisplayPanel = ({ children }) => (
   </RetroPanel>
 );
 
-const RetroControlPanel = ({ children }) => (
+const RetroControlPanel = ({ children }: RetroControlPanelProps) => (
   <RetroPanel>
     <div className="flex flex-wrap justify-center gap-8">
       {children}
