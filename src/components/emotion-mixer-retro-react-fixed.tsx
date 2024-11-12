@@ -215,12 +215,12 @@ const RetroKnob = ({
 };
 
 const EmotionMixer = () => {
-  const [power, setPower] = useState(false);
-  const [selectedEmotions, setSelectedEmotions] = useState([]);
-  const [emotionValues, setEmotionValues] = useState({});
-  const [activeRandomButton, setActiveRandomButton] = useState(null);
+  const [power, setPower] = useState<boolean>(false);
+  const [selectedEmotions, setSelectedEmotions] = useState<string[]>([]);
+  const [emotionValues, setEmotionValues] = useState<Record<string, number>>({});
+  const [activeRandomButton, setActiveRandomButton] = useState<number | null>(null);
 
-  const emotions = [
+  const emotions: Emotion[] = [
     { name: 'Joy', plName: 'Radość', code: 'JO', color: '#FFD700' },
     { name: 'Trust', plName: 'Zaufanie', code: 'TR', color: '#4CAF50' },
     { name: 'Fear', plName: 'Strach', code: 'FR', color: '#9C27B0' },
@@ -231,7 +231,7 @@ const EmotionMixer = () => {
     { name: 'Anticipation', plName: 'Oczekiwanie', code: 'AN', color: '#3F51B5' }
   ];
 
-  const handleEmotionSelect = (emotion) => {
+  const handleEmotionSelect = (emotion: string) => {
     if (selectedEmotions.includes(emotion)) {
       setSelectedEmotions(selectedEmotions.filter(e => e !== emotion));
       const newValues = { ...emotionValues };
@@ -243,17 +243,17 @@ const EmotionMixer = () => {
     }
   };
 
-  const generateCSECode = () => {
+  const generateCSECode = (): string => {
     if (selectedEmotions.length === 0) return 'NO INPUT';
     
     const sortedEmotions = [...selectedEmotions].sort((a, b) => {
-      const codeA = emotions.find(e => e.name === a).code;
-      const codeB = emotions.find(e => e.name === b).code;
+      const codeA = emotions.find(e => e.name === a)?.code || '';
+      const codeB = emotions.find(e => e.name === b)?.code || '';
       return codeA.localeCompare(codeB);
     });
 
     const codes = sortedEmotions
-      .map(name => emotions.find(e => e.name === name).code)
+      .map(name => emotions.find(e => e.name === name)?.code)
       .join('.');
 
     const intensities = sortedEmotions
@@ -266,7 +266,7 @@ const EmotionMixer = () => {
     return `CSE-[${codes}]-[${intensities}]-001`;
   };
 
-  const handleRandomClick = (count) => {
+  const handleRandomClick = (count: number) => {
     setActiveRandomButton(count);
     setSelectedEmotions([]);
     setEmotionValues({});
