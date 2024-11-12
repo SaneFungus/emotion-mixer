@@ -101,7 +101,7 @@ const RetroKnob = ({
   step = 1,
   sensitivity = 0.5
 }: RetroKnobProps) => {
-  const knobRef = useRef(null);
+  const knobRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startY, setStartY] = useState(0);
   const [startValue, setStartValue] = useState(value);
@@ -115,7 +115,7 @@ const RetroKnob = ({
   };
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
       if (isDragging && knobRef.current) {
         e.preventDefault();
         const deltaY = (startY - e.clientY) * sensitivity;
@@ -151,7 +151,7 @@ const RetroKnob = ({
     setRotation(-135 + (270 * (value - min) / (max - min)));
   }, [value, min, max]);
 
-  const handleMouseDown = (e) => {
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     setIsDragging(true);
     setStartY(e.clientY);
     setStartValue(localValue);
