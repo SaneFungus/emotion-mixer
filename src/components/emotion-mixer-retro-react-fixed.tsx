@@ -75,6 +75,20 @@ const RetroControlPanel = ({ children }: RetroControlPanelProps) => (
 );
 
 // Poprawiony komponent RetroKnob
+type RetroKnobProps = {
+  value?: number;
+  onChange: (value: number) => void;
+  color?: string;
+  label?: string;
+  size?: 'small' | 'medium' | 'large';
+  showValue?: boolean;
+  min?: number;
+  max?: number;
+  step?: number;
+  sensitivity?: number;
+};
+
+// Komponent RetroKnob
 const RetroKnob = ({ 
   value = 5,
   onChange,
@@ -86,7 +100,7 @@ const RetroKnob = ({
   max = 10,
   step = 1,
   sensitivity = 0.5
-}) => {
+}: RetroKnobProps) => {
   const knobRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startY, setStartY] = useState(0);
